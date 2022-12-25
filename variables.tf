@@ -98,7 +98,7 @@ variable "node_shape" {
 }
 
 variable "node_image_id" {
-  default = ""
+  default = "ocid1.image.oc1.ap-seoul-1.aaaaaaaa3lyzmywfzthi2ct4m5qhlrioe5w2mcozoiajvcwiqfljl6cozc6a"
 }
 
 variable "node_pool_boot_volume_size_in_gbs" {
