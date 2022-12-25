@@ -64,11 +64,16 @@ resource "oci_containerengine_node_pool" "oci_oke_node_pool" {
   }
 
   node_source_details {
-    #image_id                = var.node_image_id == "" ? element([for source in data.oci_containerengine_node_pool_option.oci_oke_node_pool_option.sources : source.image_id if length(regexall("Oracle-Linux-${var.node_linux_version}-20[0-9]*.*", source.source_name)) > 0], 0) : var.node_image_id
-    image_id                = var.node_image_id == "" ? element([for source in data.oci_containerengine_node_pool_option.oci_oke_node_pool_option.sources : source.image_id if length(regexall(local.node_image_regex, source.source_name)) > 0], 0) : var.node_image_id
+    image_id                = var.node_image_id == "" ? element([for source in data.oci_containerengine_node_pool_option.oci_oke_node_pool_option.sources : source.image_id if length(regexall("Oracle-Linux-${var.node_linux_version}-20[0-9]*.*", source.source_name)) > 0], 0) : var.node_image_id
     source_type             = "IMAGE"
     boot_volume_size_in_gbs = var.node_pool_boot_volume_size_in_gbs
   }
+#    node_source_details {
+#    #image_id                = var.node_image_id == "" ? element([for source in data.oci_containerengine_node_pool_option.oci_oke_node_pool_option.sources : source.image_id if length(regexall("Oracle-Linux-${var.node_linux_version}-20[0-9]*.*", source.source_name)) > 0], 0) : var.node_image_id
+#    image_id                = var.node_image_id == "" ? element([for source in data.oci_containerengine_node_pool_option.oci_oke_node_pool_option.sources : source.image_id if length(regexall(local.node_image_regex, source.source_name)) > 0], 0) : var.node_image_id
+#    source_type             = "IMAGE"
+#    boot_volume_size_in_gbs = var.node_pool_boot_volume_size_in_gbs
+#  }
 
   ssh_public_key = var.ssh_public_key != "" ? var.ssh_public_key : tls_private_key.public_private_key_pair.public_key_openssh
 
